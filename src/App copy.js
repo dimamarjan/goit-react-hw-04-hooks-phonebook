@@ -91,23 +91,7 @@ export default class App extends Component {
     this.setState({
       contacts: contacts,
     });
-    localStorage.setItem("phonebook", JSON.stringify(contacts));
   };
-
-  componentDidUpdate(prevProps, { contacts }) {
-    if (contacts !== this.state.contacts) {
-      localStorage.setItem("phonebook", JSON.stringify(this.state.contacts));
-    }
-  }
-
-  componentDidMount() {
-    const localData = JSON.parse(localStorage.getItem("phonebook"));
-    if (localData) {
-      this.setState({
-        contacts: localData,
-      });
-    }
-  }
 
   render() {
     return (
