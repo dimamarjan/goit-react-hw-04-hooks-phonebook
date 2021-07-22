@@ -1,19 +1,11 @@
 import { useState, useEffect } from "react";
+
+import { v4 as uuidv4 } from "uuid";
+
 import { ContactForm } from "components/ContactForm/ContactForm";
 import { Filter } from "components/Filter/Filter";
 import { ContactList } from "components/ContactList/ContactList";
-import { v4 as uuidv4 } from "uuid";
-
-const useLocalStorage = (key, defaultValue) => {
-  const [state, setState] = useState(() => {
-    return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
-  });
-  useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(state));
-  }, [key, state]);
-
-  return [state, setState];
-};
+import { useLocalStorage } from "utils/useLocalSrtorage";
 
 function App() {
   const [contacts, setСontacts] = useLocalStorage("contacts", []);
@@ -94,7 +86,7 @@ function App() {
       } else {
         setFilteredData([
           ...contacts.filter((contactItem) => {
-            return contactItem.name.indexOf(filter) > -1;
+            return contactItem.name.indexOf(filter.toLowerCase()) > -1;
           }),
         ]);
       }
